@@ -22,7 +22,27 @@ enum XhrReadyState {
     DONE
 }
 
+const foo2 : null = null;
+const foo3 : undefined = undefined;
 
+function add(nbr1 : number, nbr2 : number) : number {
+    return nbr1 + nbr2;
+}
+
+function loop() : never {
+    while(true) {
+        
+    }
+}
+
+//inférence et assertion de types
+// Type inference and type assertion examples
+
+let num = 10; // Type inference: num is inferred as number
+let str = "hello"; // Type inference: str is inferred as string
+
+let numStr = num as unknown as string; // Type assertion: converting num to string
+let strNum = str as unknown as number; // Type assertion: converting str to number
 //
 console.log(XhrReadyState.DONE);
 console.log(XhrReadyState[0]);

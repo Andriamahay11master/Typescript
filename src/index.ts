@@ -1,19 +1,65 @@
-//declaration base function in typescript
-function add(nbr1 : number, nbr2 : number) : number {
-    return nbr1 + nbr2;
+abstract class Engine{
+    constructor(protected type: string){
+    }
+
+    abstract stopEngine() : number
 }
 
-let add2 = (...number: Array<number>) => {
-    return number.reduce((total, nbr) => total + nbr, 0);
+class Vehicule extends Engine{
+    wheel = 4;
+    protected brand : string;
+    constructor(brand){
+        super('v8');
+        this.brand = brand;
+    }
+
+    stopEngine() {
+        console.log("Je stoppe");
+        return 2;
+    }
 }
 
-//surcharge de fonction 
-function addMulti(a: number, b: number) : number;
-function addMulti(a: string, b: string) : string;
-function addMulti(a, b) : number | string {
-    return a+b;
+class Voiture extends Vehicule{
+    public speed : number;
+    private maxSpeed: number = 100;
+    readonly airbag : boolean = true;
+    static className : string = "Voiture";
+    move (){
+        console.log("Je roule");
+    }
+
+    static startCar(){
+        console.log("Je commence");
+    }
+
+    faster(newspeed : number){
+        if(newspeed < this.maxSpeed){
+            this.speed = newspeed
+        }
+    }
+
+    changeBrand(newBrand : string) : void{
+        this.brand = newBrand
+    }
+    stop(){
+        console.log("Je stoppe");
+    }
+    constructor(brand){
+        super(brand);
+        this.speed = 0;
+    }
 }
 
-console.log(add2(10,20,5,30));
-console.log(addMulti(10,20));
-console.log(addMulti("Hello", "World"));
+const car = new Voiture("Audi");
+
+console.log(car.speed);
+console.log(car.wheel);
+car.faster(50);
+console.log(car.speed);
+car.stop();
+car.changeBrand("Renault");
+console.log(car);
+
+const caraV = new Vehicule("Renaudl");
+console.log(caraV);
+

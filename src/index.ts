@@ -1,65 +1,63 @@
-abstract class Engine{
-    constructor(protected type: string){
-    }
 
-    abstract stopEngine() : number
+
+interface User{
+    username: string,
+    isDrinking: boolean,
+    isHealthy?: boolean,
+    isSmooking?: boolean,
+    age: number
+    [propName: string]: any; //index
 }
 
-class Vehicule extends Engine{
-    wheel = 4;
-    protected brand : string;
-    constructor(brand){
-        super('v8');
-        this.brand = brand;
-    }
-
-    stopEngine() {
-        console.log("Je stoppe");
-        return 2;
-    }
+const user : User = {
+    username: 'John',
+    isDrinking: true,
+    isHealthy: true,
+    isSmooking: true,
+    age: 20,
+    hairColor: 'black'
+}
+function greet(user: User) : void{
+    console.log(`Hello ${user.username}`)	
 }
 
-class Voiture extends Vehicule{
-    public speed : number;
-    private maxSpeed: number = 100;
-    readonly airbag : boolean = true;
-    static className : string = "Voiture";
-    move (){
-        console.log("Je roule");
-    }
-
-    static startCar(){
-        console.log("Je commence");
-    }
-
-    faster(newspeed : number){
-        if(newspeed < this.maxSpeed){
-            this.speed = newspeed
-        }
-    }
-
-    changeBrand(newBrand : string) : void{
-        this.brand = newBrand
-    }
-    stop(){
-        console.log("Je stoppe");
-    }
-    constructor(brand){
-        super(brand);
-        this.speed = 0;
-    }
+function death(user: User) : void{
+    
 }
 
-const car = new Voiture("Audi");
+function goodShape(user: User) : void{
+    
+} 
+greet(user)
 
-console.log(car.speed);
-console.log(car.wheel);
-car.faster(50);
-console.log(car.speed);
-car.stop();
-car.changeBrand("Renault");
-console.log(car);
+const tableNotEditing: readonly string[] = ['a', 'b', 'c'];
+const tabNotEditing : ReadonlyArray<string> = ['a', 'b', 'c'];
 
-const caraV = new Vehicule("Renaudl");
-console.log(caraV);
+interface MyFunc{
+    (a: string, b: number): number
+}
+
+const func2 : MyFunc = (a: string, b: number) => a.length
+
+
+//composition d'interfaces
+interface Vehicule{
+    name: string,
+    drive : () => void
+}
+
+interface Engine{
+    type: string,
+}
+/*interface Car extends Vehicule, Engine{
+    wheels: number
+}*/
+
+class Car implements Vehicule, Engine{
+    drive: () => void;
+    constructor(public name: string, public wheels: number, public type: string){
+        this.drive = () => {}
+    }
+
+}
 
